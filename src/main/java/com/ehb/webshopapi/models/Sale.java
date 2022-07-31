@@ -27,10 +27,12 @@ public class Sale {
     )
     private List<Product> products;
 
+    @ManyToOne
+    private User user;
+
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public Long getId() {
         return id;

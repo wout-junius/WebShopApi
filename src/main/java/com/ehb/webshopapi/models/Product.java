@@ -24,6 +24,7 @@ public class Product {
     private Double price;
 
     @ManyToMany(mappedBy = "products", cascade = CascadeType.PERSIST)
+    @JsonIgnore
     private Collection<Sale> sales;
 
     @ManyToMany(fetch = FetchType.LAZY,
