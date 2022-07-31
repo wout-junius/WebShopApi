@@ -15,8 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @EnableWebSecurity @Configuration @RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -35,7 +34,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers(POST, "/product").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(DELETE, "/product/*").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(PATCH, "/product/*").hasAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST, "/tag").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(DELETE, "/tag/*").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(PATCH, "/tag/*").hasAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(GET, "/api/user").hasAuthority("ROLE_ADMIN");
         http.authorizeRequests().antMatchers(POST, "/sale").hasAuthority("ROLE_USER");
         http.addFilter(new CustomAuthentiacationFilter(authenticationManagerBean()));

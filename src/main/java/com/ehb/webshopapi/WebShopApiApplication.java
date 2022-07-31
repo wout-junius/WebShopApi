@@ -11,8 +11,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 
@@ -29,18 +32,21 @@ public class WebShopApiApplication {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    CommandLineRunner run(UserSevice userSevice) {
-//        return  args -> {
-//            userSevice.saveRole(new Role(null, "ROLE_USER"));
-//            userSevice.saveRole(new Role(null, "ROLE_ADMIN"));
-//
-//            userSevice.saveUser(new User(null, "jhon", "Test123!", new ArrayList<>()));
-//            userSevice.saveUser(new User(null, "mik", "Test123!", new ArrayList<>()));
-//
-//            userSevice.addRoleToUser("jhon", "ROLE_ADMIN");
-//            userSevice.addRoleToUser("mik", "ROLE_USER");
-//        };
-//    }
+    @Bean
+    CommandLineRunner run(UserSevice userSevice) {
+        if(userSevice.getusers().size() == 0) {
+        return  args -> {
+            userSevice.saveRole(new Role(null, "ROLE_USER"));
+            userSevice.saveRole(new Role(null, "ROLE_ADMIN"));
+
+            userSevice.saveUser(new User(null, "jhon", "jhon@fake.test" , "Test123!", new ArrayList<>()));
+            userSevice.saveUser(new User(null, "mik", "mik@fake.test", "Test123!", new ArrayList<>()));
+
+            userSevice.addRoleToUser("jhon", "ROLE_ADMIN");
+            userSevice.addRoleToUser("mik", "ROLE_USER");
+        };
+        }
+        return null;
+    }
 
 }

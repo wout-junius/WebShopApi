@@ -36,8 +36,6 @@ public class CustomAuthentiacationFilter extends UsernamePasswordAuthenticationF
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        log.info(username);
-        log.info(password);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         return authenticationManager.authenticate(authenticationToken);
     }
@@ -58,9 +56,6 @@ public class CustomAuthentiacationFilter extends UsernamePasswordAuthenticationF
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 60 * 1000) )
                 .sign(algorithm);
-
-//        response.setHeader("acces_token", acces_token);
-//        response.setHeader("refresh_token", refresh_token);
         Map<String, String> tokens = new HashMap<>();
         tokens.put("acces_token", acces_token);
         tokens.put("refresh_token", refresh_token);

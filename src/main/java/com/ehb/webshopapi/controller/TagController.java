@@ -2,6 +2,7 @@ package com.ehb.webshopapi.controller;
 
 import com.ehb.webshopapi.models.Tag;
 import com.ehb.webshopapi.repositories.TagRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "tag")
+@Slf4j
 public class TagController {
     @Autowired
     private TagRepository tagRepository;
